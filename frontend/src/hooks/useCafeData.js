@@ -1,37 +1,14 @@
-import { useEffect, useState } from 'react';
-import { contentData, featureData, galleryData, announcementData } from '../data/cafeData.js';
+import { useCmsData } from '../context/CmsDataContext.jsx';
 
 export function useCafeData() {
-  const [state, setState] = useState({
-    contents: {},
-    features: [],
-    gallery: [],
-    announcements: [],
-    loading: true,
+  const { data, loading } = useCmsData();
+
+  return {
+    contents: data.contents,
+    features: data.features,
+    gallery: data.gallery,
+    announcements: data.announcements,
+    loading,
     error: null,
-  });
-
-  useEffect(() => {
-    let cancelled = false;
-    const timer = setTimeout(() => {
-      if (cancelled) {
-        return;
-      }
-      setState({
-        contents: contentData,
-        features: featureData,
-        gallery: galleryData,
-        announcements: announcementData,
-        loading: false,
-        error: null,
-      });
-    }, 400);
-
-    return () => {
-      cancelled = true;
-      clearTimeout(timer);
-    };
-  }, []);
-
-  return state;
+  };
 }
