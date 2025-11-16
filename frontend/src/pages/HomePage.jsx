@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { parseExtraInfo, formatDateTime } from '../lib/content.js';
 import { LoadingSection } from '../components/StatusSection.jsx';
+import ctaBackground from '../assets/images/cta.svg';
 
 export default function HomePage({ content, features = [], gallery = [], announcements = [] }) {
   if (!content) {
@@ -139,14 +140,14 @@ export default function HomePage({ content, features = [], gallery = [], announc
         </div>
       </section>
 
-      <section className="cta-banner" style={{ backgroundImage: "url('/static/images/cta.svg')" }}>
+      <section className="cta-banner" style={{ backgroundImage: `url('${ctaBackground}')` }}>
         <div className="overlay" />
         <div className="container">
           <h2>あなたのお店のコンセプト設計に。</h2>
           <p>このデモCMSを使って、ストーリーや見せ方を試しながら作り込めます。</p>
-          <a className="btn-primary" href="/admin/login">
-            管理画面にログイン
-          </a>
+          <Link className="btn-primary" to="/reservations">
+            予約の流れを見る
+          </Link>
         </div>
       </section>
     </>
