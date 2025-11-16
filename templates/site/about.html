@@ -1,0 +1,58 @@
+{% extends 'site/base.html' %}
+{% block title %}ストーリー | Sample Cafe{% endblock %}
+{% block content %}
+<section class="page-hero" style="background-image: url('{{ content['image'] }}');" data-animate>
+    <div class="container">
+        <h1>{{ content['title'] }}</h1>
+        <p>{{ content['subtitle'] }}</p>
+    </div>
+</section>
+<section class="page-section container two-column" data-animate>
+    <div>
+        <h2>私たちのストーリー</h2>
+        <p>{{ content['body'] }}</p>
+        <div class="info-block">
+            <h3>コンセプト</h3>
+            <p>{{ content['highlight'] }}</p>
+        </div>
+    </div>
+    <div class="story-card">
+        <h3>スタッフ</h3>
+        {% if content['extra_info'] and 'team=' in content['extra_info'] %}
+            {% set members = content['extra_info'].split('=',1)[1].split(',') %}
+            <ul>
+                {% for member in members %}
+                <li>{{ member.strip() }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>お店を支える主なスタッフや、関わっている方々を紹介してください。</p>
+        {% endif %}
+    </div>
+</section>
+<section class="page-section container" data-animate>
+    <header class="section-header">
+        <h2>お知らせ・メディア掲載</h2>
+        <p>メディア掲載、コラボ企画、最近のお知らせなどをこちらに掲載できます。</p>
+    </header>
+    <div class="announcement-grid">
+        {% for announcement in announcements %}
+        <article class="announcement-card">
+            <time datetime="{{ announcement['published_at'] }}">{{ announcement['published_at'] | replace('T', ' ') }}</time>
+            <h3>{{ announcement['title'] }}</h3>
+            <p>{{ announcement['content'] }}</p>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+<section class="page-section accent">
+    <div class="container">
+        <h2>私たちが大切にしていること</h2>
+        <ul class="bullet-list">
+            <li>生産者さんや素材の背景への敬意。</li>
+            <li>細部へのこだわりから生まれる、心地よいひととき。</li>
+            <li>サステナビリティと透明性への継続的な取り組み。</li>
+        </ul>
+    </div>
+</section>
+{% endblock %}

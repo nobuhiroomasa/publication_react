@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}管理画面 | Sample Cafe CMS{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-dyZP2w7Uja2+G2kZZgwyU0YzUKGwEuITdSb9VjA36TObgGJE0E7E5Wdl66iRS0LlwM651c01qmPvvrL1jAU6mA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+<header class="admin-header">
+    <div class="container">
+        <div class="logo">Sample Cafe 管理画面</div>
+        <nav>
+            <a href="{{ url_for('admin.dashboard') }}">ダッシュボード</a>
+            <a href="{{ url_for('admin.manage_gallery') }}">ギャラリー</a>
+            <a href="{{ url_for('admin.manage_features') }}">おすすめ</a>
+            <a href="{{ url_for('admin.manage_announcements') }}">お知らせ</a>
+            <a href="{{ url_for('admin.logout') }}" class="logout">ログアウト</a>
+        </nav>
+    </div>
+</header>
+<main class="admin-main">
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-wrapper">
+            {% for category, message in messages %}
+            <div class="flash flash-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </div>
+</main>
+<footer class="admin-footer">
+    <div class="container">
+        <p>本ページは「Sample Cafe」用のデモ管理コンソールです。<br>
+           デフォルトログイン情報：ユーザー名 <code>admin</code> / パスワード <code>admin1234</code>
+        </p>
+    </div>
+</footer>
+</body>
+</html>

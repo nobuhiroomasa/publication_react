@@ -1,0 +1,131 @@
+{% extends 'site/base.html' %}
+{% block title %}Sample Cafe | 公式サイト{% endblock %}
+{% block content %}
+<section class="hero" style="background-image: url('{{ content["image"] }}');" data-animate>
+    <div class="hero-content container">
+        <span class="hero-badge">Weekend Lounge</span>
+        <h1>{{ content['title'] }}</h1>
+        <p>{{ content['subtitle'] }}</p>
+        <div class="hero-highlight">{{ content['highlight'] }}</div>
+        <a href="{{ url_for('main.reservations') }}" class="btn-primary">席を予約する</a>
+    </div>
+</section>
+<section class="intro container">
+    <div class="intro-text">
+        <h2>おもてなしのデモサイト</h2>
+        <p>{{ content['body'] }}</p>
+    </div>
+    <div class="intro-card">
+        <h3>おすすめの一杯・一皿</h3>
+        <p>
+            {{ content['extra_info'].split('=')[1] if content['extra_info'] and 'signature=' in content['extra_info'] 
+               else '季節ごとに変わるおすすめメニューをご用意しています。' }}
+        </p>
+        <a href="{{ url_for('main.features') }}" class="btn-outline">おすすめを見る</a>
+    </div>
+</section>
+<section class="social-proof" data-animate>
+    <div class="container">
+        <header class="section-header">
+            <h2>お知らせ</h2>
+            <p>最新の営業情報やイベント情報などをこちらでご案内します。</p>
+        </header>
+        <div class="metrics">
+            <div class="card">
+                <strong data-count="680">0</strong>
+                <span>今月の保存数</span>
+            </div>
+            <div class="card">
+                <strong data-count="120">0</strong>
+                <span>UGCストーリー</span>
+            </div>
+            <div class="card">
+                <strong data-count="48">0</strong>
+                <span>コラボ投稿</span>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="feature-grid container" data-animate>
+    <header class="section-header">
+        <h2>ハイライト</h2>
+        <p>お店らしさが伝わるポイントをご紹介します。</p>
+    </header>
+    <div class="grid">
+        {% for feature in features %}
+        <div class="feature-card">
+            <i class="fas {{ feature['icon'] }}"></i>
+            <h3>{{ feature['title'] }}</h3>
+            <p>{{ feature['description'] }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<section class="announcements" data-animate>
+    <div class="container">
+        <header class="section-header">
+            <h2>News & Journal</h2>
+            <p>最新のイベントや限定メニューをチェックして、来店前からワクワクをシェア。</p>
+        </header>
+        <div class="announcement-grid">
+            {% for announcement in announcements %}
+            <article class="announcement-card">
+                <time datetime="{{ announcement['published_at'] }}">{{ announcement['published_at'] | replace('T', ' ') }}</time>
+                <h3>{{ announcement['title'] }}</h3>
+                <p>{{ announcement['content'] }}</p>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<section class="insta-focus" data-animate>
+    <div class="container">
+        <div class="insta-header">
+            <div>
+                <p class="hero-label">Instagram Reels</p>
+                <h2>Colorful Moments</h2>
+            </div>
+            <div class="insta-handle">
+                <i class="fab fa-instagram"></i>
+                <span>@samplecafe</span>
+            </div>
+            <a href="https://www.instagram.com/" class="btn-primary" target="_blank" rel="noopener">フォローして最新情報を受け取る</a>
+        </div>
+        <div class="insta-grid">
+            {% for image in gallery[:4] %}
+            <div class="insta-card">
+                <img src="{{ image['file_path'] }}" alt="{{ image['caption'] or 'Instagram highlight' }}">
+                <p>{{ image['caption'] or 'Daily mood' }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<section class="gallery-preview" data-animate>
+    <div class="container">
+        <header class="section-header">
+            <h2>ギャラリー</h2>
+            <p>店内の雰囲気やメニューの写真をご覧いただけます。</p>
+        </header>
+        <div class="gallery-grid">
+            {% for image in gallery %}
+            <figure>
+                <img src="{{ image['file_path'] }}" alt="{{ image['caption'] or 'ギャラリー画像' }}">
+                <figcaption>{{ image['caption'] }}</figcaption>
+            </figure>
+            {% endfor %}
+        </div>
+        <div class="cta-center">
+            <a href="{{ url_for('main.gallery') }}" class="btn-outline">ギャラリーをもっと見る</a>
+        </div>
+    </div>
+</section>
+<section class="cta-banner" style="background-image: url('/static/images/cta.svg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <h2>あなたのお店のコンセプト設計に。</h2>
+        <p>このデモCMSを使って、ストーリーや見せ方を試しながら作り込めます。</p>
+        <a href="{{ url_for('admin.login') }}" class="btn-primary">管理画面にログイン</a>
+    </div>
+</section>
+{% endblock %}
