@@ -26,6 +26,18 @@ npm run dev      # = cd frontend && npm run dev
 - 本番ビルド: `npm run build`
 - ビルド結果のローカル確認: `npm run preview`
 
+## デプロイ（お名前.com 共用サーバー例）
+
+お名前.com の共用サーバーのように Apache で静的ファイルを配信する場合は、以下の手順で SPA として動作させられます。
+
+1. `npm run build` を実行し、`frontend/dist` に生成されるファイル一式をダウンロードします。
+2. 生成物をサーバーのドキュメントルートにアップロードします。`index.html` と `assets/`、それに含まれるファイルをすべて配置してください。
+3. ルート直下に同梱の `.htaccess`（`frontend/public/.htaccess`）を置きます。Vite のビルド時に `dist/.htaccess` としてコピーされるため、そのままアップロードすれば OK です。
+
+`.htaccess` では存在しないパスをすべて `index.html` にフォールバックするよう `RewriteRule` を定義しているため、`/admin/login` や `/gallery` などに直接アクセスしても React Router が正しくレンダリングできます。
+
+> サブディレクトリ配信が必要な場合は `frontend/vite.config.js` の `base` を `/subdir/` のように変更してから再ビルドしてください。
+
 ## 管理画面の使い方
 
 1. <http://localhost:5173/admin/login> にアクセスし、初期 ID `admin` / パスワード `admin1234` でログインします。
