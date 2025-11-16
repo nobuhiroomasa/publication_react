@@ -33,10 +33,22 @@ npm run dev      # = cd frontend && npm run dev
 1. `npm run build` を実行し、`frontend/dist` に生成されるファイル一式をダウンロードします。
 2. 生成物をサーバーのドキュメントルートにアップロードします。`index.html` と `assets/`、それに含まれるファイルをすべて配置してください。
 3. ルート直下に同梱の `.htaccess`（`frontend/public/.htaccess`）を置きます。Vite のビルド時に `dist/.htaccess` としてコピーされるため、そのままアップロードすれば OK です。
+   - 共有レンタルサーバーの中には URL リライトが禁止されている環境もあります。その場合は `frontend/.env`（または `.env.production`）に `VITE_ROUTER_MODE=hash` を指定してビルドすると、`/#/access` のようなハッシュベースの URL で React Router が動作し、サーバー設定が不要になります。
 
 `.htaccess` では存在しないパスをすべて `index.html` にフォールバックするよう `RewriteRule` を定義しているため、`/admin/login` や `/gallery` などに直接アクセスしても React Router が正しくレンダリングできます。
 
 > サブディレクトリ配信が必要な場合は `frontend/vite.config.js` の `base` を `/subdir/` のように変更してから再ビルドしてください。
+
+### 環境変数のサンプル
+
+`frontend/.env.example` に代表的な設定をまとめました。以下のようにコピーして編集してください。
+
+```bash
+cp frontend/.env.example frontend/.env
+```
+
+- `VITE_ROUTER_MODE=browser` (既定): `.htaccess` などでヒストリー API のルーティングを扱えるサーバー向け。
+- `VITE_ROUTER_MODE=hash`: リライト設定ができないサーバーで `/` に `index.html` を置くだけで動かしたいとき。
 
 ## 管理画面の使い方
 
