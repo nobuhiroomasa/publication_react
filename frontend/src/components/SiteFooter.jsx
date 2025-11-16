@@ -8,16 +8,16 @@ export default function SiteFooter() {
         </div>
         <div>
           <p className="hero-label">Contact</p>
-          <p>demo@example.com</p>
+          <a href="mailto:demo@example.com">demo@example.com</a>
         </div>
         <div>
-          <p className="hero-label">Admin</p>
-          <a href="/admin/login">管理画面にログイン</a>
+          <p className="hero-label">Visit</p>
+          <p>Open daily / 09:00-22:00</p>
         </div>
       </div>
       <div className="container footer-meta">
         <span>© {new Date().getFullYear()} Sample Cafe</span>
-        <span>React + Flask Demo</span>
+        <span>React Single Page Experience</span>
       </div>
     </footer>
   );

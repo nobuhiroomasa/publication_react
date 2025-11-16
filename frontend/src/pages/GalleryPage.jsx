@@ -1,4 +1,5 @@
 import { LoadingSection } from '../components/StatusSection.jsx';
+import galleryBanner from '../assets/images/gallery-banner.svg';
 
 export default function GalleryPage({ gallery }) {
   if (!gallery) {
@@ -7,7 +8,7 @@ export default function GalleryPage({ gallery }) {
   const hasImages = gallery.length > 0;
   return (
     <>
-      <section className="page-hero small" style={{ backgroundImage: "url('/static/images/gallery-banner.svg')" }} data-animate>
+      <section className="page-hero small" style={{ backgroundImage: `url('${galleryBanner}')` }} data-animate>
         <div className="container">
           <h1>ギャラリー</h1>
           <p>写真でお店の雰囲気や体験をお届けします。</p>
