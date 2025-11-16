@@ -19,9 +19,14 @@ export default function HomePage({ content, features = [], gallery = [], announc
           <h1>{content.title}</h1>
           <p>{content.subtitle}</p>
           <div className="hero-highlight">{content.highlight}</div>
-          <Link className="btn-primary" to="/reservations">
-            席を予約する
-          </Link>
+          <div className="hero-actions">
+            <Link className="btn-primary" to="/reservations">
+              席を予約する
+            </Link>
+            <Link className="btn-secondary" to="/admin/login">
+              管理画面ログイン
+            </Link>
+          </div>
         </div>
       </section>
 
