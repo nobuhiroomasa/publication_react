@@ -14,10 +14,13 @@
 Node.js (18 以上) を用意し、以下の手順で開発できます。
 
 ```bash
-cd frontend
-npm install
-npm run dev
+npm run install  # = cd frontend && npm install
+npm run dev      # = cd frontend && npm run dev
 ```
+
+> 既存の手順で `cd frontend` して各コマンドを実行しても構いませんが、
+> ルートディレクトリの `package.json` にラッパースクリプトを用意したため
+> `npm run build` などをどこからでも実行できるようになりました。
 
 - 開発サーバー: <http://localhost:5173>
 - 本番ビルド: `npm run build`
